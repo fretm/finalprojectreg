@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <style>
+                table {
+                  font-family: arial, sans-serif;
+                  border-collapse: collapse;
+                  width: 100%;
+                }
+                
+                td, th {
+                  border: 1px solid #dddddd;
+                  text-align: left;
+                  padding: 8px;
+                }
+                
+                tr:nth-child(even) {
+                  background-color: #dddddd;
+                }
+                </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Student Registration System </title>
+    <script src="user.js"></script>
+    
+    <script>
+        function showCourse(sortby){
+            let studObj=new User();
+            studObj.courseInfo.sort((a,b)=>a[sortby]>b[sortby]?1:-1);
+            studInfo=`<table> <tr><th onclick="showCourse('Id')">
+                Course Id</th><th onclick="showCourse('name')">Course Name
+                    </th><th onclick="showCourse('code')">Course Code</th></tr> ` ;
+               
+            for (let key of studObj.courseInfo){
+  
+                   // let stuinfo=mystudent.userInfo.find((item)=>item.id==studentId)
+                    studInfo+="<tr><td>"+key.Id+"</td><td>"+key.name+"</td><td>"+key.code+"</td></tr>";
+           }
+
+            document.getElementById("showcourse").innerHTML=studInfo+"</table>"; 
+        }
+        function start(){
+        let myuser = new User();
+
+        console.log(myuser);
+            let id=document.getElementById("userid").value;
+            let ps=document.getElementById("passwd").value;
+            myuser.checkuser(id,ps);
+        }
+    </script>
+
+</head>
+<body>
+        
+    Login <input type="text" id="userid">
+        <br>
+    Password <input type="text" id="passwd">
+    <br>
+    <button onclick="start()">Login</button><br>
+    <button onclick="showCourse('Id')">Show Courses</button>
+    <div id="showcourse"></div>
+</body>
+</html>

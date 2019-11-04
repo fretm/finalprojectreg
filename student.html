@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <style>
+                table {
+                  font-family: arial, sans-serif;
+                  border-collapse: collapse;
+                  width: 100%;
+                }
+                
+                td, th {
+                  border: 1px solid #dddddd;
+                  text-align: left;
+                  padding: 8px;
+                }
+                
+                tr:nth-child(even) {
+                  background-color: #dddddd;
+                }
+                </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Student Page</title>
+  
+    <script src="user.js"></script>
+    
+</head>
+<body>
+    <h3 id="studentname">This is Student</h3>
+
+    <div id="showInfo"></div>
+    
+    <script>
+        let urlParams = new URLSearchParams(window.location.search);
+        let studentId=urlParams.get('id');
+
+            let mystudent= new Student();
+            var userData = JSON.parse(localStorage.getItem('userInfo'));
+            var studentInformation = JSON.parse(localStorage.getItem('studentInfo'));
+       
+          let studInfo= `<table id="empTable"> <tr><th>Firstname</th><th >Lastname</th><th>Phone</th>
+                <th>Role</th><th >Password</th><th>Id</th>
+                <th>Entry Year</th><th >Gpa</th><th>Courses</th>
+          </tr> `;
+              
+           
+            for (let key of studentInformation){
+                if(key.id==studentId){
+                
+                    let stuinfo=userData.find((item)=>item.id==studentId)
+                    document.getElementById("studentname").innerHTML="Welcome "+stuinfo.fname+" "+stuinfo.lname;
+                   // console.log(stuinfo)
+
+                    //studInfo+=key.course+"<br>"+stuinfo.lname+" "+stuinfo.fname;
+
+                    studInfo += "<tr><td contenteditable='true'>" + stuinfo.fname + "</td><td contenteditable='true'>" + stuinfo.lname + "</td><td contenteditable='true'>" + stuinfo.phone + "</td><td >" + stuinfo.role + "</td><td contenteditable='true'>" + stuinfo.password + "</td><td contenteditable='false'>" + stuinfo.id + "</td><td >" + key.entryYear + "</td><td>" + key.gpa + "</td><td>" + key.course.join(",") + "</td></tr>";
+
+                }
+
+              
+
+            }
+            document.getElementById("showInfo").innerHTML=studInfo+"</table>"; 
+
+ 
+        //document.getElementById("showInfo").innerHTML=studInfo;
+
+    function showTableData() {
+      //  document.getElementById('showTable').innerHTML = "";
+        var myTab = document.getElementById('empTable');
+        let myobj = [];
+      
+        // LOOP THROUGH EACH ROW OF THE TABLE AFTER HEADER.
+        for (let i = 1; i < myTab.rows.length; i++) {
+            let temp = [];
+          
+            // GET THE CELLS COLLECTION OF THE CURRENT ROW.
+            var objCells = myTab.rows.item(i).cells;
+
+            // LOOP THROUGH EACH CELL OF THE CURENT ROW TO READ CELL VALUES.
+            for (var j = 0; j < objCells.length; j++) {
+
+               // temp = temp + objCells.item(j).innerHTML;
+               temp[j] = objCells.item(j).innerHTML;
+              // console.log(temp[j] )
+            }
+
+    myobj={ fname: temp[0], lname: temp[1], phone: temp[2], role: temp[3], password: temp[4], id: temp[5] };
+  // console.log(myobj.fname)
+
+ userData.splice(userData.findIndex((item)=>item.id==myobj.id),1,myobj);
+ localStorage.setItem('userInfo', JSON.stringify(userData));
+ document.getElementById("studentname").innerHTML="Welcome "+myobj.fname+" "+myobj.lname;
+ alert("Update succesfully submitted")
+
+     
+
+
+           
+        }
+
+      
+
+  // localStorage.setItem('userInfo', JSON.stringify(myobj));
+    }    
+
+    </script>
+    
+    <button onclick="showTableData() ">Update</button>         
+</body>
+</html>

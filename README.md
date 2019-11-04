@@ -1,2 +1,2 @@
-# finalprojectreg
- 
+# FinalProject
+Student Registration System

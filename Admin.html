@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <style>
+                table {
+                  font-family: arial, sans-serif;
+                  border-collapse: collapse;
+                  width: 100%;
+                }
+                
+                td, th {
+                  border: 1px solid #dddddd;
+                  text-align: left;
+                  padding: 8px;
+                }
+                
+                tr:nth-child(even) {
+                  background-color: #dddddd;
+                }
+                </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Admin Page</title>
+    <script src="user.js"></script>
+   
+</head>
+<body>
+    <h1>This is admin</h1>
+    <button onclick="studObj.showStudent('student','fname')">ShowStudent</button>
+    <button onclick="studObj.showFaculty('faculty','fname')">ShowFaculty</button>
+
+    <div id="showInfo"></div>
+    <div id="showTable"></div>
+    <button onclick="studObj.showTableData()">Update</button>
+    <p>
+    </p>
+ <label >Student Full name</label>
+    <div id="changeCourses"></div>
+    <p>
+      </p>
+      <label >Courses List</label>
+    <div id="changeCourses2"></div>
+    <p>
+      </p>
+    <button onclick="assigncourses()" >Assign course</button>
+    <script>
+     
+      var userData = JSON.parse(localStorage.getItem('userInfo'));
+      var courseinformation = JSON.parse(localStorage.getItem('CourseInfo'));
+      var studentInformation = JSON.parse(localStorage.getItem('studentInfo'));
+    
+      let assignCourse=  `<select id='assignCourse'>`;
+      let courselists= `<select id='courselists'>`;
+
+for (let key of userData){
+  if(key.role=="student"){
+    assignCourse += `<option value="${key.id}">${key.fname} ${key.lname}</option>`;
+  }
+
+}
+
+for (let key of courseinformation){
+
+  courselists += `<option value="${key.name}">${key.name}</option>`;
+  
+
+}
+courselists += `</select>`; 
+assignCourse +=`</select>`;
+
+document.getElementById("changeCourses").innerHTML =assignCourse;
+document.getElementById("changeCourses2").innerHTML =courselists;
+
+
+function assigncourses(id,courseInfo){
+id=document.getElementById("assignCourse").value;
+courseInfo=document.getElementById("courselists").value;
+  for (let key of studentInformation){
+
+if(key.id==id){
+
+  key["course"].push(courseInfo)
+}
+
+localStorage.setItem('studentInfo', JSON.stringify( studentInformation));
+
+
+   // studentInformation.splice(studentInformation.findIndex((item)=>item.id==id),1,myobj);
+
+}
+
+
+
+}
+    </script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <style>
+                table {
+                  font-family: arial, sans-serif;
+                  border-collapse: collapse;
+                  width: 100%;
+                }
+                
+                td, th {
+                  border: 1px solid #dddddd;
+                  text-align: left;
+                  padding: 8px;
+                }
+                
+                tr:nth-child(even) {
+                  background-color: #dddddd;
+                }
+                </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Faculty Page</title>
+    <script src="user.js"></script>
+</head>
+<body>
+    <button onclick="studObj.showStudent('student')">ShowStudent</button>
+    <button onclick="studObj.showStudent('faculty')">ShowFaculty</button>
+    <h1>This is Faculty</h1>
+    <div id="showInfo"></div>
+  
+    <script>
+      
+      sessionStorage.setItem('lastname', 'Smith'); // save data
+
+
+
+    </script>
+</body>
+</html>
